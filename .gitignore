@@ -1,2 +1,5 @@
 indoor_outdoor**/
 .idea/
+model_checkpoint/
+model_results/
+__pycache__/

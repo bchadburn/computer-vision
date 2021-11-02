@@ -1,5 +1,4 @@
 import numpy as np
-import os
 import tensorflow as tf
 from sklearn import model_selection
 from utils.image_functions import _parse_image
