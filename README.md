@@ -164,14 +164,14 @@ we haven't seen and that properly reflect images the model would see in producti
 
 1. Perform another round of curation and make sure no other bad images were missed. 
 
-2. Identify the type of mistakes the model is making and how that differs
-between trainings. For that reason, predictions for each image were exported after training.
+2. Identify the type of mistakes the model is making and how that differs between trainings. For that reason, predictions for each image were exported after training.
    
 3. Add other indoor/outdoor categories (similar to building, house etc) where images could be added or find other options to add more data. 
    It's likely to have a more reliable model, more images and examples would be useful given the high variability between images and low validation count.
    
 4. Review data augmentations: With more time. I would be helpful to review different data augmentation methods and values. Given the 
-   variability in our images, more aggressive augmentation could be added.
+   variability in our images, more aggressive augmentation could be added. Tjhe script check_augmentation.py file can be used for manually exploring how specific augmentation
+   parameters will modify the image. Typically its best to keep augmentations similar to images the model will need to be able to predict on.
 
 5. Hyper-parameter tuning, and fiddling with different architectures could also be useful, but I'd first start with 
 business requirements and understanding the current limitations of the existing model. 
