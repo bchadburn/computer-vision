@@ -1,0 +1,14 @@
+name: Python3.9
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas=1.2.4=py38hd77b12b_0
+  - pillow=8.4.0=py38hd45dc43_0
+  - numpy=1.19.5=py38h09042cb_2
+  - scikit-learn=0.24.1=py38hf11a4ad_0
+  - tensorflow=2.3.0=mkl_py38h1fcfbd6_0
+  - tensorflow-base=2.3.0=gpu_py38h7339f5a_0
+  - tensorflow-estimator=2.3.0=pyheb71bc4_0
+  - tensorflow-gpu=2.3.0=he13fc11_0
+prefix: C:\Users\Windows\miniconda3\envs\Python3.9
