@@ -178,8 +178,8 @@ business requirements and understanding the current limitations of the existing 
 If model improvements are warranted, I'd probably use Keras Tuner to help efficiently explore the hyper-parameter search space for model parameters
 and augmentation and fine-tune parameters from there. Finally, stacked and/or ensemble methods could be used to try getting optimum performance.
 
-Speed: Given the low number of images, the model training takes place in under a minute. Since we are using gpu enabled tf, tf.data instead of slower methods like
-Keras generators, parallel processing for image processing and loading, prefetch images in CPU while GPU runs etc. 
-the model training is capable of training efficiently on a much larger dataset. Also, by default TF decodes to jpeg 
-using "Integer Fast" method. If "Integer Accurate" method is needed, decoding may be slightly slower but due to prefetch
-decrease in training time should be minimal.
+Speed: Given the low number of images, the model training takes place in under a minute. Since we are using gpu enabled tf, 
+tf.data instead of slower methods like Keras generators, parallel processing for image processing and loading, 
+prefetch images in CPU while GPU runs etc. the model training is capable of training efficiently on a much larger dataset. 
+Also, by default TF decodes to jpeg using "Integer Fast" method. If "Integer Accurate" method is needed, decoding 
+may be slightly slower but due to prefetch decrease in training time should be minimal.
