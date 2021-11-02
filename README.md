@@ -9,7 +9,7 @@ practices. Unit test examples are provided, along with code to return single mod
 ## Getting Started
 Download images, video_category_data.json, and vocabulary.csv
 
-2 options: 
+Two options: 
 1. Download subset of images from an AZURE storage container, video_category_data.json and vocabulary.csv
 https://dresearch.blob.core.windows.net/public-indoor-outdoor/indoor_outdoor.zip
 2. Skip create_data_set step: Download file "indoor_outdoor_images". This folder contains 
@@ -17,15 +17,16 @@ https://dresearch.blob.core.windows.net/public-indoor-outdoor/indoor_outdoor.zip
    - The images were selected from the AZURE subset of images using the following classes
      - indoor_scenes = {'Bedroom', 'Bathroom', 'Classroom', 'Office', 'Living Room', 'Dining Room', 'Room'
      - outdoor_scenes = {'Landscape', 'Skyscraper', 'Mountain', 'Beach', 'Ocean'}
-   - Images that were incorrectly labelled as outdoor, indoor were removed. No hard/easy images were removed or added
+   - Images that were incorrectly labelled were removed. No other images were removed or added.
     
 **1st method**: Ensure parent folder "indoor_outdoor" is in project director. 
 Within this folder include a folder "images". Also, within the parent folder include the two files: video_category_data.json and vocabulary.csv
-If using this method, after creating dataset, you may want to review images as some
-completely blank and several are mislabelled. These curated images are provided in the zip file "indoor_outddoor_images."
+If using this method, after creating dataset, you may want to review images as some are
+completely blank and several are mislabelled. These curated images are provided in the zip file "indoor_outdoor_images."
 
 **2nd method**: Unzip and place folder "indoor_outdoor_images" in project directory and skip step: Creating Data Set.
 
+Project scripts
 Along with the image related files, ensure you have the following scripts in project director.
 * requirements.txt file
 * environment.yml (for conda users)
@@ -51,13 +52,13 @@ Install the dependencies for the project using the requirements.txt
 **Installation for conda users:**
 
 The packages may fail to load if using installing from requirements.txt file as conda-forge may be required to download certain packages.
-Instead, use environment.yml file.
-- conda env create --name <env_name> --file=environment.yml
+Instead, use environment.yml file. To change env name, open yml file and change name: <env-name>
+- conda env create -f=environment.yml
 - conda activate <env_name>
 
 ### Configuration of image folders, classes, and model
 config.py includes settings for destination directories, image, and model settings. No changes should be needed unless
-changing target classes or reorganizing image directories
+changing target classes or reorganizing/renaming image directories
 
 Image path settings
 * PARENT_DIRECTORY: Parent folder with image folder, video_category_data.json, and vocabulary.csv
@@ -115,12 +116,12 @@ Script trains a CNN model by adding layers on top of a pre-trained ResNet model.
 Outputs confusion matrix, and model predictions and confidence scores for specific images. Returns overall model 
 performance on validation dataset, and lastly outputs trained model.
 
-Troubleshooting note: To run script, ensure system is using numpy version specified in requirements.txt file for numpy version. 
-Script can throw the error "NotImplementedError: Cannot convert a symbolic Tensor..." for some newer versions of numpy.
+Troubleshooting note: To run script, ensure system is using numpy version specified in requirements.txt file.
+Script can throw the error "NotImplementedError: Cannot convert a symbolic Tensor..." for some other versions of numpy.
 
 ### Making single image predictions
 Run python single_image_predictions -i {image path}  
-For example, if passing images used for train/val: python single_image_prediction.py -i indoor_outdoor_images/0-_2hRjVpJtdY.jpg
+For example, to pass an image used for train/val run: python single_image_prediction.py -i indoor_outdoor_images/0-_2hRjVpJtdY.jpg
 
 #### Description
 Loads model and makes prediction on provided image. Prints predicted class and confidence score.
