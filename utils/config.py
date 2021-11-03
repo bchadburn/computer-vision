@@ -5,6 +5,7 @@ sep = os.path.sep
 # Image path settings
 PARENT_DIRECTORY = 'indoor_outdoor'
 IMAGE_DIRECTORY = 'images'
+IMAGE_SOURCE_PATH = os.path.join(PARENT_DIRECTORY, IMAGE_DIRECTORY)
 TRAINING_IMAGES_PATH = 'indoor_outdoor_images'
 
 # Class settings
