@@ -33,7 +33,7 @@ def evaluate_model(session, model, dataset):
 
     # Create list of image files to match to validation predictions during evaluation
     files = list(
-        map(lambda s: s.decode().split("/")[-1], list(dict(dataset.validation_metadata.as_numpy_iterator()).keys())))
+        map(lambda s: os.path.split(s.decode())[-1], list(dict(dataset.validation_metadata.as_numpy_iterator()).keys())))
 
     predictions = pd.DataFrame({
         "filename": files,
@@ -61,7 +61,9 @@ def fit_model(
     """Compiles and trains model with model checkpoint. Returns performance on entire validation set.
      If fine-tuning epochs>0, if runs fine-tuning where all layers are unfrozen.
      Finally, it loads best weights, and returns performance on validation set."""
-    checkpoint_filepath = f"{MODEL_CHECKPOINT_PATH}/cp.ckpt"
+    current_dir = os.getcwd()  # Windows requires full path or doesn't have required permissions to access cp.ckpt
+    checkpoint_filepath = os.path.join(current_dir, MODEL_CHECKPOINT_PATH)
+    checkpoint_filepath = os.path.join(checkpoint_filepath, "cp.ckpt")
     os.makedirs(checkpoint_filepath, exist_ok=True)
 
     model.compile(
@@ -164,10 +166,8 @@ if __name__ == "__main__":
 
     args, _ = parser.parse_known_args()
 
-    # Check GPU is configured and compare GPU vs CPU compute time
     check_cpu_gpu()
 
-    # Create paths if they don't already exist
     verify_create_paths([MODEL_RESULTS_PATH, MODEL_CHECKPOINT_PATH])
 
     # Create filename, target datasets and filename tensors in prep for model training

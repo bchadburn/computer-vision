@@ -11,9 +11,8 @@ if __name__ == "__main__":
                         help="Full path to image, must be .jpg", metavar="FILE", type=lambda x: dir_file(x))
     args, _ = parser.parse_known_args()
 
-    if not args.image_path.endswith(".jpg"):
-        if not args.image_path.endswith(".jpeg"):
-            raise TypeError("Invalid file to return model predictions, file needs to end with .jpg")
+    if not args.image_path.endswith(".jpg") or not args.image_path.endswith(".jpeg"):
+        raise TypeError("Invalid file to return model predictions, file needs to end with .jpg")
 
     image = process_single_image(args.image_path, IMAGE_SIZE)
     fine_tuned_model = tf.keras.models.load_model(os.path.join(MODEL_RESULTS_PATH, "fine_tuned_model"))

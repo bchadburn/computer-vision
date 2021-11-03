@@ -71,14 +71,14 @@ class Dataset:
         self.total_images = len(image_filenames)
         image_filenames = sorted(image_filenames)
 
-        image_targets = [self.classes.index(name.split("\\")[1].split('-')[0]) for name in image_filenames]
+        image_targets = [self.classes.index(os.path.split(name)[1].split('-')[0]) for name in image_filenames]
 
         self.class_weight = dict(zip(np.arange(len(image_targets)), 1.0 / np.bincount(image_targets)))
         return image_filenames, image_targets
 
     def _dataset(self, image_filenames, image_targets, batch_size, repeat=False, metadata=False):
         """Creates tf.data tensors of filenames, targets used for training. Sets up parallel processing
-        for image loading and parsing. Sets prefecth to load next batch in CPU, while GPU is in training."""
+        for image loading and parsing. Sets prefetch to load next batch in CPU, while GPU is in training."""
         image_filenames_dataset = tf.data.Dataset.from_tensor_slices(image_filenames)
 
         target_dataset = tf.data.Dataset.from_tensor_slices(image_targets)
@@ -87,8 +87,7 @@ class Dataset:
             num_parallel_calls=tf.data.experimental.AUTOTUNE)
         dataset = tf.data.Dataset.zip((image_dataset, target_dataset))
 
-        # batch_size is 0 when creating dataset of the image filenames, otherwise a batch of images is created for training
-        if batch_size > 0:
+        if batch_size > 0:  # batch_size is 0 when creating dataset of the image filenames
             dataset = dataset.batch(batch_size)
 
         if repeat:
