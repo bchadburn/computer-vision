@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import random
 from sklearn import metrics
 from tensorflow.keras import callbacks
 from tensorflow.keras import optimizers
@@ -139,39 +138,13 @@ def fit_model(
     return model
 
 
-if __name__ == "__main__":
-    """Builds dataset from image files, creates and fits model and saves model weights."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--image_path", type=str, default=TRAINING_IMAGES_PATH)
-    parser.add_argument("--learning_rate", type=float, default=1e-4,
-                        help="The learning rate that will be used to train the classification model."
-                        )
-
-    parser.add_argument('--epochs', type=int, default=15,
-                        help=(
-                            "The number of epochs that will be used to train the initial classification model."
-                        )
-                        )
-
-    parser.add_argument("--fine_tuning_learning_rate", type=float, default=1e-5,
-                        help="The learning rate that will be used to fine tune the classification model."
-                        )
-
-    parser.add_argument('--fine_tuning_epochs', type=int, default=15,
-                        help=(
-                                "The number of epochs that will be used to fine tune the classification model. If zero is specified, the model will not " +
-                                "go through the fine tuning process."
-                        )
-                        )
-
-    args, _ = parser.parse_known_args()
-
+def main(model, image_path, learning_rate, epochs, fine_tuning_learning_rate, fine_tuning_epochs):
     check_cpu_gpu()
 
     verify_create_paths([MODEL_RESULTS_PATH, MODEL_CHECKPOINT_PATH])
 
-    # Create filename, target datasets and filename tensors in prep for model training
-    dataset = Dataset(args.image_path, batch_size=32, image_size=IMAGE_SIZE)
+    # Create filename, target datasets, and filename tensors in prep for model training
+    dataset = Dataset(image_path, batch_size=32, image_size=IMAGE_SIZE)
     dataset.load(classes=None)
 
     model = model.create_model(len(dataset.classes), IMAGE_SIZE)
@@ -179,13 +152,38 @@ if __name__ == "__main__":
     model = fit_model(
         model,
         dataset,
-        args.learning_rate,
-        args.epochs,
-        args.fine_tuning_learning_rate,
-        args.fine_tuning_epochs
+        learning_rate,
+        epochs,
+        fine_tuning_learning_rate,
+        fine_tuning_epochs
     )
 
-    model_id = random.randint(0, 1000)
     model.save(os.path.join(MODEL_RESULTS_PATH, 'fine_tuned_model'))
 
     print("Model was successfully saved.")
+
+
+if __name__ == "__main__":
+    """Builds dataset from image files, creates and fits model and saves model weights."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-training_images_path", type=lambda x: dir_path(x), default=TRAINING_IMAGES_PATH,
+                        help="Full path to training images folder")
+
+    parser.add_argument("--learning_rate", type=float, default=1e-4,
+                        help="The learning rate that will be used to train the classification model.")
+
+    parser.add_argument('--epochs', type=int, default=15,
+                        help="The number of epochs that will be used to train the initial classification model.")
+
+    parser.add_argument("--fine_tuning_learning_rate", type=float, default=1e-5,
+                        help="The learning rate that will be used to fine tune the classification model.")
+
+    parser.add_argument('--fine_tuning_epochs', type=int, default=15,
+                        help=(
+                                "The number of epochs that will be used to fine tune the classification model. If zero is specified, the model will not " +
+                                "go through the fine tuning process.")
+                        )
+
+    args, _ = parser.parse_known_args()
+
+    main(model, args.training_images_path, args.learning_rate, args.epochs, args.fine_tuning_learning_rate, args.fine_tuning_epochs)

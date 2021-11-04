@@ -11,6 +11,13 @@ def create_directory(file_path):
         os.makedirs(file_path)
 
 
+def dir_path(string):
+    if os.path.isdir(string):
+        return string
+    else:
+        raise NotADirectoryError(string)
+
+
 def dir_file(path):
     if os.path.isfile(path):
         return path
