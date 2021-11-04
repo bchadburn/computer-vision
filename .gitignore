@@ -3,3 +3,4 @@ indoor_outdoor**/
 model_checkpoint/
 model_results/
 __pycache__/
+reference_files/model_results.zip

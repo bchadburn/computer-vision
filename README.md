@@ -2,40 +2,43 @@
 
 ![alt text](https://www.csun.edu/sites/default/files/AS-Earth_Month-Outdoor_Online.jpg)
 
-This is an image classification project using labelled images from the video dataset from YouTube.
-The purpose is to classify indoor and outdoor scenes with limited data and efficient model training
-practices. Unit test examples are provided, along with code to return single model predictions. 
+This is an image classification project using labelled images from the video dataset 
+from [YouTube-8M](https://research.google.com/youtube8m/explore.html). The purpose is to 
+classify indoor and outdoor scenes with limited data and efficient model training practices. 
+Unit test examples are provided along with code to return single model predictions. 
 
 ## Getting Started
 Download images, video_category_data.json, and vocabulary.csv
 
-Two options: 
-1. Download subset of images from an AZURE storage container, video_category_data.json and vocabulary.csv
-https://dresearch.blob.core.windows.net/public-indoor-outdoor/indoor_outdoor.zip
-2. Skip create_data_set step: Download file "indoor_outdoor_images". This folder contains 
+Two options besides downloading directly from YouTube-8M dataset.
+1. Download subset of YouTube-8M images from reference_files/indoor_outdoor.zip. 
+2. Skip create_data_set step: Download file "indoor_outdoor_images.zip" in reference_files. This folder contains 
 169 curated images. 
-   - The images were selected from the AZURE subset of images using the following classes
-     - indoor_scenes = {'Bedroom', 'Bathroom', 'Classroom', 'Office', 'Living Room', 'Dining Room', 'Room'
+   - The images were selected from the indoor_outdoor.zip images using the following classes
+     - indoor_scenes = {'Bedroom', 'Bathroom', 'Classroom', 'Office', 'Living Room', 'Dining Room', 'Room'}
      - outdoor_scenes = {'Landscape', 'Skyscraper', 'Mountain', 'Beach', 'Ocean'}
    - Images that were incorrectly labelled were removed. No other images were removed or added.
     
-**1st method**: Ensure parent folder "indoor_outdoor" is in project director. 
-Within this folder include a folder "images". Also, within the parent folder include the two files: video_category_data.json and vocabulary.csv
-If using this method, after creating dataset, you may want to review images as some are
-completely blank and several are mislabelled. These curated images are provided in the zip file "indoor_outdoor_images."
+**1st method**: Ensure parent folder "indoor_outdoor" is directly below project folder. 
+Within this folder include a folder "images". Also, within the parent folder include the two files: 
+video_category_data.json and vocabulary.csv If using this method, after creating dataset, 
+you may want to review images as some are completely blank and several are mislabelled. 
+These curated images are provided in the zip file "indoor_outdoor_images."
 
-**2nd method**: Unzip and place folder "indoor_outdoor_images" in project directory and skip step: Creating Data Set.
+**2nd method**: Unzip and place folder "indoor_outdoor_images" in project directory with images directly in this folder. 
+Skip step: Creating Data Set.
 
 Project scripts
-Along with the image related files, ensure you have the following scripts in project director.
+
+Along with the image related files, ensure you have the following scripts, folders in the directory.
 * requirements.txt file
 * environment.yml (for conda users)
-* utils folder with utils.py, preprocess_image.py, config.py
+* utils folder with config.py, dataset.py, image_functions.py, utils.py
 * create_data_set.py
 * Model folder with model.py
 * training.py
 * single_image_predictions.py
-* load_images_unit_test.py
+* (Optional) test folder with load_images_unit_test.py, check_augmentation.py
 
 ## Installation
 
@@ -52,7 +55,7 @@ Install the dependencies for the project using the requirements.txt
 **Installation for conda users:**
 
 The packages may fail to load if using installing from requirements.txt file as conda-forge may be required to download certain packages.
-Instead, use environment.yml file. To change env name, open yml file and change name: <env-name>
+Instead, use environment.yml file. To change env name, open yml file and change the following: name: <env-name>
 - conda env create -f=environment.yml
 - conda activate <env_name>
 
@@ -130,8 +133,7 @@ Loads model and makes prediction on provided image. Prints predicted class and c
 When running training.py file, the script will run a tensor through a simple CNN layer 
 through CPU and will try using GPU and compare test times. The results will be printed in the console. 
 
-If tensorflow-gpu is correctly configured, the GPU should be considerably faster, 
-although its dependent on GPU. Using NVIDIA GeForce RTX 2080 Super, the GPU speed over CPU is 600+% for this test.
+If tensorflow-gpu is correctly configured, the GPU should be considerably faster, although the increase in speed will be dependent on the GPU. Using NVIDIA GeForce RTX 2080 Super, the GPU speed over CPU is 600+% for this test.
 
 ### Run _load_image unit test
 Run python load_images_unit_test.py 
@@ -170,17 +172,15 @@ we haven't seen and that properly reflect images the model would see in producti
 3. Add other indoor/outdoor categories (similar to building, house etc) where images could be added or find other options to add more data. 
    It's likely to have a more reliable model, more images and examples would be useful given the high variability between images and low validation count.
    
-4. Review data augmentations: With more time. I would be helpful to review different data augmentation methods and values. Given the 
-   variability in our images, more aggressive augmentation could be added. Tjhe script check_augmentation.py file can be used for manually exploring how specific augmentation
+4. Review data augmentations. With more time it would be helpful to review different data augmentation methods and values. Given the 
+   variability in our images, more aggressive augmentation could be added. The script *check_augmentation.py* file can be used for manually exploring how specific augmentation
    parameters will modify the image. Typically its best to keep augmentations similar to images the model will need to be able to predict on.
 
-5. Hyper-parameter tuning, and fiddling with different architectures could also be useful, but I'd first start with 
+5. Hyper-parameter tuning, and fiddling with different architectures could also be useful, but I'd first start with the
 business requirements and understanding the current limitations of the existing model. 
-If model improvements are warranted, I'd probably use Keras Tuner to help efficiently explore the hyper-parameter search space for model parameters
-and augmentation and fine-tune parameters from there. Finally, stacked and/or ensemble methods could be used to try getting optimum performance.
+If model improvements are warranted, I'd probably use Keras Tuner to help efficiently explore the hyper-parameter search space for model
+and augmentation parameters and fine-tune parameters from there. Finally, stacked and/or ensemble methods could be used to try getting optimum performance.
 
 Speed: Given the low number of images, the model training takes place in under a minute. Since we are using gpu enabled tf, 
-tf.data instead of slower methods like Keras generators, parallel processing for image processing and loading, 
-prefetch images in CPU while GPU runs etc. the model training is capable of training efficiently on a much larger dataset. 
-Also, by default TF decodes to jpeg using "Integer Fast" method. If "Integer Accurate" method is needed, decoding 
-may be slightly slower but due to prefetch decrease in training time should be minimal.
+tf.data instead of slower methods like Keras generators, parallel processing for image processing and loading, and
+prefetch images in CPU while the GPU runs - the model training is capable of training efficiently on a much larger dataset.
