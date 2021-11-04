@@ -1,4 +1,12 @@
 import unittest
+import sys
+import os
+
+# Importing modules from parent folder
+current_dir = os.getcwd()
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
 from utils.dataset import Dataset
 from utils.config import *
 
@@ -7,7 +15,7 @@ batch_size = 32  # For tests below, exact value doesn't matter
 
 class TestLoadImages(unittest.TestCase):
     def setUp(self):
-        self.Dataset = Dataset(TRAINING_IMAGES_PATH, batch_size, IMAGE_SIZE)
+        self.Dataset = Dataset(os.path.join(parent_dir, TRAINING_IMAGES_PATH), batch_size, IMAGE_SIZE)
         self.Dataset.classes = ALL_CLASSES
         self.image_filenames, self.image_targets = self.Dataset._load_images()
 

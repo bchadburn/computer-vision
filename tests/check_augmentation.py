@@ -4,9 +4,11 @@ from tensorflow.keras.applications import resnet_v2
 from tensorflow.keras.layers.experimental import preprocessing
 import matplotlib.pyplot as plt
 import numpy as np
+from utils.config import *
 
-IMAGE_SIZE = 244
-image_filename = 'indoor_outdoor_images/0-_2hRjVpJtdY.jpg'
+
+local_image_path = os.path.join(TRAINING_IMAGES_PATH, '0-_2hRjVpJtdY.jpg')
+image_filename = os.path.join(os.getcwd(), local_image_path)
 
 resize_and_rescale = tf.keras.Sequential([
   layers.experimental.preprocessing.Resizing(IMAGE_SIZE, IMAGE_SIZE),
