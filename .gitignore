@@ -1,8 +1,8 @@
 indoor_outdoor**/
 .idea/
 model_checkpoint/
-model_checkpoint_del/
 model_results/
+model_checkpoint_del/
 model_results_del/
 __pycache__/
 reference_files/model_results.zip
