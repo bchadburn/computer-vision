@@ -33,12 +33,12 @@ Project scripts
 Along with the image related files, ensure you have the following scripts, folders in the directory.
 * requirements.txt file
 * environment.yml (for conda users)
-* utils folder with config.py, dataset.py, image_functions.py, utils.py
+* utils folder with config.py, dataset.py, image_functions.py, utils.py, init file
 * create_data_set.py
-* Model folder with model.py
+* Model folder with model.py, init file
 * training.py
 * single_image_predictions.py
-* (Optional) test folder with load_images_unit_test.py, check_augmentation.py
+* (Optional) tests folder with test_load_images.py, check_augmentation.py, init file
 
 ## Installation
 
@@ -119,9 +119,6 @@ Script trains a CNN model by adding layers on top of a pre-trained ResNet model.
 Outputs confusion matrix, and model predictions and confidence scores for specific images. Returns overall model 
 performance on validation dataset, and lastly outputs trained model.
 
-Troubleshooting note: To run script, ensure system is using numpy version specified in requirements.txt file.
-Script can throw the error "NotImplementedError: Cannot convert a symbolic Tensor..." for some other versions of numpy.
-
 ### Making single image predictions
 Run python single_image_predictions -i {image path}  
 For example, to pass an image used for train/val run: python single_image_prediction.py -i indoor_outdoor_images/0-_2hRjVpJtdY.jpg
@@ -136,7 +133,8 @@ through CPU and will try using GPU and compare test times. The results will be p
 If tensorflow-gpu is correctly configured, the GPU should be considerably faster, although the increase in speed will be dependent on the GPU. Using NVIDIA GeForce RTX 2080 Super, the GPU speed over CPU is 600+% for this test.
 
 ### Run _load_image unit test
-Run python load_images_unit_test.py 
+To run unit tests run "pytest". To name specific tests run: pytest -k test_load_images.py or 
+pytest -k test_same_length (for a specific function)
 
 Note: Test script is meant to support being run automatically and doesn't take arguments. If the training images 
 aren't found in the default folder 'indoor_outdoor_images', the variable TRAINING_IMAGES_PATH needs to be changed in 
@@ -182,5 +180,5 @@ If model improvements are warranted, I'd probably use Keras Tuner to help effici
 and augmentation parameters and fine-tune parameters from there. Finally, stacked and/or ensemble methods could be used to try getting optimum performance.
 
 Speed: Given the low number of images, the model training takes place in under a minute. Since we are using gpu enabled tf, 
-tf.data instead of slower methods like Keras generators, parallel processing for image processing and loading, and
+tf.data (instead of slower methods like Keras generators), parallel processing for image processing and loading, and
 prefetch images in CPU while the GPU runs - the model training is capable of training efficiently on a much larger dataset.
