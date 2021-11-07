@@ -3,7 +3,7 @@
 ![alt text](https://www.csun.edu/sites/default/files/AS-Earth_Month-Outdoor_Online.jpg)
 
 This is an image classification project using labelled images from the video dataset 
-from [YouTube-8M](https://research.google.com/youtube8m/explore.html). The purpose is to 
+from [YouTube-8M](https://research.google.com/youtube8m/explore.html). The goal of this project is to 
 classify indoor and outdoor scenes with limited data and efficient model training practices. 
 Unit test examples are provided along with code to return single model predictions. 
 
