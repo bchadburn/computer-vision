@@ -5,7 +5,7 @@
 This is an image classification project using labelled images from the video dataset 
 from [YouTube-8M](https://research.google.com/youtube8m/explore.html). The goal of this project is to 
 classify indoor and outdoor scenes with limited data and efficient model training practices. 
-Unit test examples are provided along with code to return single model predictions. 
+Unit test examples, code for reviewing image augmentations, and code for making single model predictions are also provided. 
 
 ## Getting Started
 Download images, video_category_data.json, and vocabulary.csv
@@ -15,14 +15,14 @@ Two options besides downloading directly from YouTube-8M dataset.
 2. Skip create_data_set step: Download file "indoor_outdoor_images.zip" in reference_files. This folder contains 
 169 curated images. 
    - The images were selected from the indoor_outdoor.zip images using the following classes
-     - indoor_scenes = {'Bedroom', 'Bathroom', 'Classroom', 'Office', 'Living Room', 'Dining Room', 'Room'}
-     - outdoor_scenes = {'Landscape', 'Skyscraper', 'Mountain', 'Beach', 'Ocean'}
+     - indoor_scenes = 'Bedroom', 'Bathroom', 'Classroom', 'Office', 'Living Room', 'Dining Room', 'Room'
+     - outdoor_scenes = 'Landscape', 'Skyscraper', 'Mountain', 'Beach', 'Ocean'
    - Images that were incorrectly labelled were removed. No other images were removed or added.
     
 **1st method**: Ensure parent folder "indoor_outdoor" is directly below project folder. 
 Within this folder include a folder "images". Also, within the parent folder include the two files: 
 video_category_data.json and vocabulary.csv If using this method, after creating dataset, 
-you may want to review images as some are completely blank and several are mislabelled. 
+you may want to review images as some are completely blank and several are mislabeled. 
 These curated images are provided in the zip file "indoor_outdoor_images."
 
 **2nd method**: Unzip and place folder "indoor_outdoor_images" in project directory with images directly in this folder. 
@@ -32,7 +32,7 @@ Project scripts
 
 Along with the image related files, ensure you have the following scripts, folders in the directory.
 * requirements.txt file
-* environment.yml (for conda users)
+* environment.yml (for Conda users)
 * utils folder with config.py, dataset.py, image_functions.py, utils.py
 * create_data_set.py
 * Model folder with model.py
@@ -72,12 +72,12 @@ Image path settings
 Class settings
 * indoor/outdoor_label: Sets labels for target classes
 * ALL_CLASSES: Set list of classes of target classes
-* PRED_CLASS_NAMES: Labels corresponding to prediction index (e.g. "indoor")
+* PRED_CLASS_NAMES: Labels corresponding to prediction index (e.g., "indoor")
 * indoor/outdoor scenes lists related classes grouped as "indoor", "outdoor"
 
 Model Settings
 * MODEL_RESULTS_PATH: Path for confusion matrix and image predictions, parent folder for .pb model file
-* IMAGE_SIZE: Image size required by model. Resnet uses 244.
+* IMAGE_SIZE: Image size required by model. Resnet uses 224.
 * MODEL_CHECKPOINT_PATH: Path for saving model checkpoints
 
 Note: Any changes to target classes will require changes to map_classes and map_parent_category under the [Creating data set section](#Creating-data-set)
@@ -146,8 +146,8 @@ config.py
 Tests result of _load_images function from training.py script. The function _load_images returns the filename and target class list.
 The script runs the following three tests:
 1. Number of filenames match number of target classes. 
-2. Image format includes prefix class + '-'  (e.g. '0-'), and the extension is .jpg
-3. Checks target classes are found in class list defined in config.py file
+2. Image format includes prefix class + '-' (e.g. '0-'), and the extension is .jpg
+3. Target classes are found in class list defined in config.py file
 
 ### Model Improvements
 
@@ -169,7 +169,7 @@ we haven't seen and that properly reflect images the model would see in producti
 
 2. Identify the type of mistakes the model is making and how that differs between trainings. For that reason, predictions for each image were exported after training.
    
-3. Add other indoor/outdoor categories (similar to building, house etc) where images could be added or find other options to add more data. 
+3. Add other indoor/outdoor categories (similar to building, house etc.) where images could be added or find other options to add more data. 
    It's likely to have a more reliable model, more images and examples would be useful given the high variability between images and low validation count.
    
 4. Review data augmentations. With more time it would be helpful to review different data augmentation methods and values. Given the 
@@ -181,6 +181,6 @@ business requirements and understanding the current limitations of the existing 
 If model improvements are warranted, I'd probably use Keras Tuner to help efficiently explore the hyper-parameter search space for model
 and augmentation parameters and fine-tune parameters from there. Finally, stacked and/or ensemble methods could be used to try getting optimum performance.
 
-Speed: Given the low number of images, the model training takes place in under a minute. Since we are using gpu enabled tf, 
+Speed: Given the low number of images, the model training takes place in under a minute. Since we are using GPU enabled Tensorflow, 
 tf.data instead of slower methods like Keras generators, parallel processing for image processing and loading, and
 prefetch images in CPU while the GPU runs - the model training is capable of training efficiently on a much larger dataset.
