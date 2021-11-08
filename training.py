@@ -58,7 +58,7 @@ def fit_model(
         fine_tuning_epochs
 ):
     """Compiles and trains model with model checkpoint. Returns performance on entire validation set.
-     If fine-tuning epochs>0, if runs fine-tuning where all layers are unfrozen.
+     If fine-tuning epochs>0, it runs fine-tuning where all layers are unfrozen.
      Finally, it loads best weights, and returns performance on validation set."""
     current_dir = os.getcwd()  # Windows requires full path or doesn't have required permissions to access cp.ckpt
     checkpoint_filepath = os.path.join(current_dir, MODEL_CHECKPOINT_PATH)
