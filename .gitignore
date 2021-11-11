@@ -1,5 +1,6 @@
 indoor_outdoor**/
 .idea/
+.venv/
 model_checkpoint/
 model_checkpoint_del/
 model_results/
