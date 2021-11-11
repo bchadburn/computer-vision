@@ -52,7 +52,7 @@ Along with the image related files, ensure you have the following scripts, folde
 Install the dependencies for the project using the requirements.txt
   - `pip install -r requirements.txt`
 
-**Installation for conda users:**
+**Installation for Conda users:**
 
 The packages may fail to load if using installing from requirements.txt file as conda-forge may be required to download certain packages.
 Instead, use environment.yml file. To change env name, open yml file and change the following: name: <env-name>
@@ -174,7 +174,7 @@ we haven't seen and that properly reflect images the model would see in producti
    
 4. Review data augmentations. With more time it would be helpful to review different data augmentation methods and values. Given the 
    variability in our images, more aggressive augmentation could be added. The script *check_augmentation.py* file can be used for manually exploring how specific augmentation
-   parameters will modify the image. Typically its best to keep augmentations similar to images the model will need to be able to predict on.
+   parameters will modify the image. Typically, it's best to keep augmentations similar to images the model will need to be able to predict on.
 
 5. Hyper-parameter tuning, and fiddling with different architectures could also be useful, but I'd first start with the
 business requirements and understanding the current limitations of the existing model. 

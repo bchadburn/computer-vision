@@ -180,10 +180,9 @@ if __name__ == "__main__":
 
     parser.add_argument('--fine_tuning_epochs', type=int, default=15,
                         help=(
-                                "The number of epochs that will be used to fine tune the classification model. If zero is specified, the model will not " +
-                                "go through the fine tuning process.")
+                                "The number of epochs that will be used to fine tune the classification model. "
+                                "If zero is specified, the model will not go through the fine tuning process.")
                         )
-
     args, _ = parser.parse_known_args()
 
     main(model, args.training_images_path, args.learning_rate, args.epochs, args.fine_tuning_learning_rate, args.fine_tuning_epochs)

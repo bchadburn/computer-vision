@@ -2,8 +2,9 @@ indoor_outdoor**/
 .idea/
 .venv/
 model_checkpoint/
-model_checkpoint_del/
 model_results/
+model_checkpoint_del/
 model_results_del/
 __pycache__/
+.venv/
 reference_files/model_results.zip

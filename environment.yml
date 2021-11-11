@@ -11,4 +11,5 @@ dependencies:
   - tensorflow-base=2.3.0=gpu_py38h7339f5a_0
   - tensorflow-estimator=2.3.0=pyheb71bc4_0
   - tensorflow-gpu=2.3.0=he13fc11_0
+  - pytest=6.2.4=py38haa95532_2
 prefix: C:\Users\Windows\miniconda3\envs\Python3.9
