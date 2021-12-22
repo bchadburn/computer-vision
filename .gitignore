@@ -1,10 +1,11 @@
-indoor_outdoor**/
 .idea/
 .venv/
 model_checkpoint/
 model_results/
+data/
+indoor_outdoor/dist/
+indoor_outdoor/Distutils*
 model_checkpoint_del/
 model_results_del/
 __pycache__/
-.venv/
-reference_files/model_results.zip
+references/model_results.zip

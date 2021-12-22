@@ -11,7 +11,7 @@ Unit test examples, code for reviewing image augmentations, and code for making 
 Download images, video_category_data.json, and vocabulary.csv
 
 Two options besides downloading directly from YouTube-8M dataset.
-1. Download subset of YouTube-8M images from reference_files/indoor_outdoor.zip. 
+1. Download subset of YouTube-8M images from references/indoor_outdoor_raw.zip. 
 2. Skip create_data_set step: Download file "indoor_outdoor_images.zip" in reference_files. This folder contains 
 169 curated images. 
    - The images were selected from the indoor_outdoor.zip images using the following classes
@@ -103,13 +103,14 @@ be indoor or outdoor (e.g. "0-" to specify an indoor image, "1-" for outdoor).
   the function will need to be modified.
 
 ### Training
-Run python training.py
+Run python indoor/outdoor/training.py
 
 The default source of training images is indoor_outdoor_images. To specify source run:
 python training.py --image_path <path_to_folder>
 Other optional parameters can be passed for model training including:
-- --epochs:  The number of epochs that will be used to train the initial classification model.
+- --epochs:  The number of epochs that will be used to train the initial classification model
 - --learning_rate: The learning rate that will be used to train the model
+- --batch size: The learning rate that will be used to fine tune the classification modeling
 - --fine_tuning_epochs: The number of epochs that will be used to fine tune the model. If zero is specified, the model will not 
                                 go through the fine-tuning process
 - --fine_tuning_learning_rate:  The learning rate that will be used to fine tune the model.   
@@ -123,20 +124,21 @@ Troubleshooting note: To run script, ensure system is using numpy version specif
 Script can throw the error "NotImplementedError: Cannot convert a symbolic Tensor..." for some other versions of numpy.
 
 ### Making single image predictions
-Run python single_image_predictions -i {image path}  
-For example, to pass an image used for train/val run: python single_image_prediction.py -i indoor_outdoor_images/0-_2hRjVpJtdY.jpg
+Run python indoor_outdoor/single_image_predictions -i {image path}  
+For example, to pass an image used for train/val run: python indoor_outdoor/single_image_prediction.py -i data/indoor_outdoor_images/0-_2hRjVpJtdY.jpg
 
 #### Description
 Loads model and makes prediction on provided image. Prints predicted class and confidence score.
  
 ### Run Tensorflow GPU vs CPU test
 When running training.py file, the script will run a tensor through a simple CNN layer 
-through CPU and will try using GPU and compare test times. The results will be printed in the console. 
+through CPU and will try using GPU and compare test times. The results will be printed in the console. Alternatively, 
+you can import check_cpu_gpu from indoor_outdoor/utils/gpu_config.py and run check_cpu_gpu().
 
 If tensorflow-gpu is correctly configured, the GPU should be considerably faster, although the increase in speed will be dependent on the GPU. Using NVIDIA GeForce RTX 2080 Super, the GPU speed over CPU is 600+% for this test.
 
 ### Run _load_image unit test
-Run python load_images_unit_test.py 
+Run python tests/test_load_images.py
 
 Note: Test script is meant to support being run automatically and doesn't take arguments. If the training images 
 aren't found in the default folder 'indoor_outdoor_images', the variable TRAINING_IMAGES_PATH needs to be changed in 
