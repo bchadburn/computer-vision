@@ -2,7 +2,8 @@
 .venv/
 model_checkpoint/
 model_results/
-data/
+data/indoor_outdoor_images/
+data/indoor_outdoor_raw/images
 indoor_outdoor/dist/
 indoor_outdoor/Distutils*
 model_checkpoint_del/
