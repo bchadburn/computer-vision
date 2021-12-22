@@ -38,3 +38,4 @@ def test_image_targets(dataset):
     classes = [str(i) for i in ALL_CLASSES]
     for i in image_targets:
         assert i in classes
+
