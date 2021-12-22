@@ -103,7 +103,7 @@ be indoor or outdoor (e.g. "0-" to specify an indoor image, "1-" for outdoor).
   the function will need to be modified.
 
 ### Training
-Run python training.py
+Run python indoor/outdoor/training.py
 
 The default source of training images is indoor_outdoor_images. To specify source run:
 python training.py --image_path <path_to_folder>

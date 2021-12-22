@@ -1,8 +1,8 @@
-indoor_outdoor**/
 .idea/
 .venv/
 model_checkpoint/
 model_results/
+data/
 model_checkpoint_del/
 model_results_del/
 __pycache__/
