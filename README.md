@@ -19,13 +19,12 @@ Two options besides downloading directly from YouTube-8M dataset.
      - outdoor_scenes = 'Landscape', 'Skyscraper', 'Mountain', 'Beach', 'Ocean'
    - Images that were incorrectly labelled were removed. No other images were removed or added.
     
-**1st method**: Ensure parent folder "indoor_outdoor" is directly below project folder. 
-Within this folder include a folder "images". Also, within the parent folder include the two files: 
-video_category_data.json and vocabulary.csv If using this method, after creating dataset, 
+**1st method**: Unzip images.zip under data/indoor_outdoor_raw. This folder should als include
+video_category_data.json and vocabulary.csv If using this method, after creating dataset (indoor_outdoor_raw/images), 
 you may want to review images as some are completely blank and several are mislabeled. 
 These curated images are provided in the zip file "indoor_outdoor_images."
 
-**2nd method**: Unzip and place folder "indoor_outdoor_images" in project directory with images directly in this folder. 
+**2nd method**: Unzip indoor_outdoor_images.zip under data folder. 
 Skip step: Creating Data Set.
 
 Project scripts
