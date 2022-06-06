@@ -1,7 +1,4 @@
-# Indoor-Outdoor Image Classification
-
-![alt text](http://www.blr.com/html_email/images/WIR/HRDA/HRDA_111516.jpg)
-
+# Indoor-Outdoor Image Classificatio
 ![alt text](https://www.csun.edu/sites/default/files/AS-Earth_Month-Outdoor_Online.jpg)
 
 This is an image classification project using labelled images from the video dataset 
