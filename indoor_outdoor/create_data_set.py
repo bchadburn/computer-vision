@@ -41,7 +41,7 @@ def move_images(orig_path, dest_path, image_dict):
             shutil.copy(file, final_path)
 
 
-def main(image_dest):
+def main():
     if not os.path.exists(args.image_destination):
         os.makedirs(args.image_destination)
 
@@ -49,17 +49,17 @@ def main(image_dest):
     f = open(os.path.join(RAW_FILES_PATH, 'video_category_data.json'))
     list_image_details = json.load(f)
 
-    create_directory(image_dest)
+    create_directory(args.image_destination)
     location_mapping = map_classes(vocab, INDOOR_SCENES, OUTDOOR_SCENES)
     image_locations = map_parent_category(location_mapping, list_image_details)
 
     # Delete any images currently in source directory
     print('Deleting existing files in image destination')
-    for file in os.listdir(image_dest):
-        os.remove(os.path.join(image_dest, file))
+    for file in os.listdir(args.image_destination):
+        os.remove(os.path.join(args.image_destination, file))
 
     image_source_path = os.path.join(RAW_DATA_PATH)
-    move_images(image_source_path, image_dest, image_locations)
+    move_images(image_source_path, args.image_destination, image_locations)
 
 
 if __name__ == '__main__':
@@ -67,5 +67,5 @@ if __name__ == '__main__':
     parser.add_argument('--image_destination', type=str, default=TRAINING_IMAGES_PATH)
     args, _ = parser.parse_known_args()
 
-    main(args.image_destination)
+    main()
     print('Completed creating data set')
