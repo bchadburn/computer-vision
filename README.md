@@ -36,7 +36,8 @@ Requires Python 3.9+ and [uv](https://github.com/astral-sh/uv).
 ```bash
 git clone https://github.com/bchadburn/computer-vision.git
 cd computer-vision
-uv sync
+uv venv && source .venv/bin/activate
+uv pip install -r requirements.txt
 ```
 
 Unzip the curated image set:
@@ -46,16 +47,16 @@ unzip references/indoor_outdoor_images.zip -d data/
 
 Train the classifier:
 ```bash
-uv run python indoor_outdoor/training.py
+python indoor_outdoor/training.py
 ```
 
 Run inference on a single image:
 ```bash
-uv run python indoor_outdoor/single_image_predictions.py --image path/to/image.jpg
+python indoor_outdoor/single_image_predictions.py --image path/to/image.jpg
 ```
 
 ## Run Tests
 
 ```bash
-uv run pytest tests/ -v
+pytest tests/ -v
 ```
