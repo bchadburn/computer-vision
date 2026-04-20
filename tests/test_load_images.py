@@ -1,13 +1,15 @@
-import pytest
+import inspect
 import os
 import sys
-import inspect
+
+import pytest
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
-from indoor_outdoor.utils.constants import TRAINING_IMAGES_PATH, IMAGE_SIZE
-from indoor_outdoor.utils.config import ALL_CLASSES
 from indoor_outdoor.dataset import Dataset
+from indoor_outdoor.utils.config import ALL_CLASSES
+from indoor_outdoor.utils.constants import IMAGE_SIZE, TRAINING_IMAGES_PATH
 
 batch_size = 32
 

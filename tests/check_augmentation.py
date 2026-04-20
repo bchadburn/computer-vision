@@ -1,9 +1,18 @@
-import tensorflow as tf
-from tensorflow.keras import layers, Sequential
-from tensorflow.keras.applications import resnet_v2
-from tensorflow.keras.layers.experimental import preprocessing
+import inspect
+import os
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
+from tensorflow.keras import Sequential, layers
+from tensorflow.keras.applications import resnet_v2
+from tensorflow.keras.layers.experimental import preprocessing
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
+from indoor_outdoor.utils.constants import IMAGE_SIZE, TRAINING_IMAGES_PATH
 
 local_image_path = os.path.join(TRAINING_IMAGES_PATH, '0-_2hRjVpJtdY.jpg')
 image_filename = os.path.join(os.getcwd(), local_image_path)

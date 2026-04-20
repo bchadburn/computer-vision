@@ -1,5 +1,6 @@
-import tensorflow as tf
 import timeit
+
+import tensorflow as tf
 
 
 def print_system_info():
@@ -70,7 +71,7 @@ def get_processor_time(devices=['GPU', 'CPU'], runs=50):
                                  setup='from __main__ import gpu')
     print('GPU (s):', round(gpu_exp_time, 2))
 
-    print('GPU speedup over CPU: %.0f%%' % round((cpu_exp_time / gpu_exp_time - 1) * 100, 2))
+    print(f'GPU speedup over CPU: {round((cpu_exp_time / gpu_exp_time - 1) * 100, 2):.0f}%')
 
 
 def check_cpu_gpu():

@@ -1,5 +1,7 @@
 # Indoor-Outdoor Image Classification
 
+[![CI](https://github.com/bchadburn/computer-vision/actions/workflows/ci.yml/badge.svg)](https://github.com/bchadburn/computer-vision/actions/workflows/ci.yml)
+
 Binary image classifier (indoor vs. outdoor scenes) trained on a curated subset of YouTube-8M
 frames using transfer learning on ResNet-50 with TensorFlow.
 
